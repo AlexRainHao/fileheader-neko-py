@@ -1,26 +1,51 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+let _isEnabled: boolean = true;
+
+const _headerTemplate = `# -*- coding: utf-8 -*-
+
+"""
+@Description: 🐈
+@Author: your-email@gmail.com
+@Copyright 2025 - 2025
+@Date: 2025-02-25 22:33:05
+@Version: __Dev__
+"""
+
+`;
+
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "fileheader-neko-py" is now active!');
+	console.log("Extension `fileheader-neko-py` is now active!");
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('fileheader-neko-py.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from fileheader-neko-py!');
+	let enableCommand = vscode.commands.registerCommand("fileheader-neko-py.enable", () => {
+		_isEnabled = true;
+		vscode.window.showInformationMessage("fileheader-neko-py enabled");
 	});
 
-	context.subscriptions.push(disposable);
+	let disableCommand = vscode.commands.registerCommand("fileheader-neko-py.disable", () => {
+		_isEnabled = false;
+		vscode.window.showInformationMessage("fileheader-neko-py disabled");
+	});
+
+
+	const watcher = vscode.workspace.createFileSystemWatcher("**/*.py");
+
+	watcher.onDidCreate(async (uri) => {
+		if (!_isEnabled) { return; }
+
+		const doc = await vscode.workspace.openTextDocument(uri);
+
+		const editor = new vscode.WorkspaceEdit();
+
+		editor.insert(uri, new vscode.Position(0, 0), _headerTemplate);
+		await vscode.workspace.applyEdit(editor);
+		await doc.save();
+	});
+
+	context.subscriptions.push(enableCommand, disableCommand, watcher);
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+	console.log("Extension `fileheader-neko-py` is now deactivated!");
+}
