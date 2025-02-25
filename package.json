@@ -4,7 +4,7 @@
   "description": "",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.97.0"
+    "vscode": "^1.96.2"
   },
   "categories": [
     "Other"
@@ -14,8 +14,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "fileheader-neko-py.helloWorld",
-        "title": "Hello World"
+        "command": "fileheader-neko-py.enable",
+        "title": "Enable fileheader-neko-py"
+      },
+      {
+        "command": "fileheader-neko-py.disable",
+        "title": "Disable fileheader-neko-py"
       }
     ]
   },
@@ -28,7 +32,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.97.0",
+    "@types/vscode": "^1.96.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
