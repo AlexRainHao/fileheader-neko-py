@@ -1,7 +1,5 @@
 import * as vscode from "vscode";
 
-let _isEnabled: boolean = true;
-
 const _headerTemplate = `# -*- coding: utf-8 -*-
 
 """
@@ -14,17 +12,23 @@ const _headerTemplate = `# -*- coding: utf-8 -*-
 
 `;
 
+const _stateKey = "isFileHeaderNekoPyEnabled";
+
 export function activate(context: vscode.ExtensionContext) {
 
 	console.log("Extension `fileheader-neko-py` is now active!");
 
+	let _isEnabled = context.globalState.get<boolean>(_stateKey, true);
+
 	let enableCommand = vscode.commands.registerCommand("fileheader-neko-py.enable", () => {
 		_isEnabled = true;
+		context.globalState.update(_stateKey, true);
 		vscode.window.showInformationMessage("fileheader-neko-py enabled");
 	});
 
 	let disableCommand = vscode.commands.registerCommand("fileheader-neko-py.disable", () => {
 		_isEnabled = false;
+		context.globalState.update(_stateKey, false);
 		vscode.window.showInformationMessage("fileheader-neko-py disabled");
 	});
 
