@@ -1,16 +1,20 @@
 import * as vscode from "vscode";
+import dayjs from "dayjs";
 
-const _headerTemplate = `# -*- coding: utf-8 -*-
+const _headerTemplate = () => {
+
+	return `# -*- coding: utf-8 -*-
 
 """
 @Description: 🐈
 @Author: your-email@gmail.com
-@Copyright 2025 - 2025
-@Date: 2025-02-25 22:33:05
+@Copyright ${dayjs().year()} - ${dayjs().year()}
+@Date: ${dayjs().format("YYYY-MM-DD HH:mm:ss")}
 @Version: __Dev__
 """
 
 `;
+};
 
 const _stateKey = "isFileHeaderNekoPyEnabled";
 
@@ -42,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const editor = new vscode.WorkspaceEdit();
 
-		editor.insert(uri, new vscode.Position(0, 0), _headerTemplate);
+		editor.insert(uri, new vscode.Position(0, 0), _headerTemplate());
 		await vscode.workspace.applyEdit(editor);
 		await doc.save();
 	});
