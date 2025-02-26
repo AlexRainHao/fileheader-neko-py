@@ -1,16 +1,16 @@
 import * as vscode from "vscode";
 import dayjs from "dayjs";
 
-const _headerTemplate = () => {
+const _headerTemplate = (author: string, version: string) => {
 
 	return `# -*- coding: utf-8 -*-
 
 """
 @Description: 🐈
-@Author: your-email@gmail.com
+@Author: ${author}
 @Copyright ${dayjs().year()} - ${dayjs().year()}
 @Date: ${dayjs().format("YYYY-MM-DD HH:mm:ss")}
-@Version: __Dev__
+@Version: ${version}
 """
 
 `;
@@ -42,11 +42,16 @@ export function activate(context: vscode.ExtensionContext) {
 	watcher.onDidCreate(async (uri) => {
 		if (!_isEnabled) { return; }
 
+		const config = vscode.workspace.getConfiguration("fileheader-neko-py");
+
+		const author = config.get<string>("author", "");
+		const version = config.get<string>("version", "__Dev__");
+
 		const doc = await vscode.workspace.openTextDocument(uri);
 
 		const editor = new vscode.WorkspaceEdit();
 
-		editor.insert(uri, new vscode.Position(0, 0), _headerTemplate());
+		editor.insert(uri, new vscode.Position(0, 0), _headerTemplate(author, version));
 		await vscode.workspace.applyEdit(editor);
 		await doc.save();
 	});
