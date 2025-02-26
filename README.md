@@ -1,13 +1,13 @@
 # README
 
-Just my preference `file header` target on `python`
+Just another `vscode` extension satisfy my preference `file header` targets on `python`
 
 ```python
 # -*- coding: utf-8 -*-
 
 """
 @Description: 🐈
-@Author: your-email@gmail.com
+@Author: your@email.com
 @Copyright 2025 - 2025
 @Date: 2025-02-25 22:33:05
 @Version: __Dev__
@@ -17,12 +17,16 @@ Just my preference `file header` target on `python`
 
 ## Features
 
-- auto create file header once `py` file created
-
+- auto insert file header once `py` file created
 
 ## Configuration
 
-TODO:
+```json
+{
+    "fileheader-neko-py.author": "your@email.com",
+    "fileheader-neko-py.version": "1.0",
+}
+```
 
 ## Commands
 
