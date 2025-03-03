@@ -4,6 +4,10 @@
   "description": "",
   "version": "0.0.1",
   "publisher": "AlexRainHao",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexRainHao/fileheader-neko-py"
+  },
   "engines": {
     "vscode": "^1.92.2"
   },
