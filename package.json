@@ -3,6 +3,7 @@
   "displayName": "fileheader-neko-py",
   "description": "",
   "version": "0.0.1",
+  "publisher": "AlexRainHao",
   "engines": {
     "vscode": "^1.92.2"
   },
