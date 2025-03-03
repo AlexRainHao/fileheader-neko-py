@@ -1,9 +1,13 @@
 {
   "name": "fileheader-neko-py",
   "displayName": "fileheader-neko-py",
-  "description": "",
+  "description": "auto insert file header once `py` file created",
   "version": "0.0.1",
   "publisher": "AlexRainHao",
+  "author": {
+    "name": "AlexRainHao",
+    "url": "https://github.com/AlexRainHao"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/AlexRainHao/fileheader-neko-py"
@@ -11,6 +15,7 @@
   "engines": {
     "vscode": "^1.92.2"
   },
+  "icon": "images/icon.png",
   "categories": [
     "Other"
   ],
