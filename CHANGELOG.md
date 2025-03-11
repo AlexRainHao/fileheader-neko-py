@@ -1,3 +1,12 @@
+
+
+## [0.1.1](https://github.com/AlexRainHao/fileheader-neko-py/compare/0.1.0...0.1.1) (2025-03-11)
+
+
+### Features
+
+* decopule to avoid repeat write header ([6ef360b](https://github.com/AlexRainHao/fileheader-neko-py/commit/6ef360b1d64de11cc49a554158f192d336830cbb))
+
 # Changelog
 
 # 0.1.0 (2025-03-03)
