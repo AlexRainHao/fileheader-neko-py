@@ -25,6 +25,10 @@ const _headerTemplate = (author: string, version: string) => {
 
 const _stateKey = "isFileHeaderNekoPyEnabled";
 
+function decouple(doc: vscode.TextDocument) {
+	return doc.getText().match(/@Description.*\r?\n@Author.*\r?\n@Copyright.*\r?\n@Date.*\r?\n@Version/) === null;
+}
+
 export function activate(context: vscode.ExtensionContext) {
 
 	console.log("Extension `fileheader-neko-py` is now active!");
@@ -56,11 +60,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const doc = await vscode.workspace.openTextDocument(uri);
 
-		const editor = new vscode.WorkspaceEdit();
+		if (decouple(doc)) {
 
-		editor.insert(uri, new vscode.Position(0, 0), _headerTemplate(author, version));
-		await vscode.workspace.applyEdit(editor);
-		await doc.save();
+			const editor = new vscode.WorkspaceEdit();
+
+			editor.insert(uri, new vscode.Position(0, 0), _headerTemplate(author, version));
+			await vscode.workspace.applyEdit(editor);
+			await doc.save();
+		}
 	});
 
 	context.subscriptions.push(enableCommand, disableCommand, watcher);
